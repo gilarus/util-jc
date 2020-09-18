@@ -43,6 +43,7 @@
 #define OPT_V 0x040
 #define OPT_W 0x080
 #define OPT_X 0x100
+#define OPT_A 0x200
 
 #define EXIT_CODE_WAIT  0
 #define EXIT_CODE_USAGE 1
@@ -118,6 +119,7 @@ static void usage(void)
 	printf("  -c\tspecify sending repeat counts\n");
 	printf("  -t\tspecify sending period\n");
 	printf("  -x\tparse in hex mode\n");
+	printf("  -a\tappending \"\\r\\n\" at the end");
 }
 
 static void EXIT(int exit_code)
@@ -357,6 +359,10 @@ static void opt_write(char *ptx, int len)
 	} else {
 		len_b = len;
 		memcpy(ptx_b, ptx, len_b);
+		if (FLAGS & OPT_A) {
+			strcpy(ptx_b + len_b, "\r\n");
+			len_b += 2;
+		}
 	}
 tx:
 	print("Writing buffer(%d)\n", len_b);
@@ -427,7 +433,7 @@ int main(int argc, char **argv)
 	subscribe_signals();
 	opterr = 0;
 
-	while ((c = getopt(argc, argv, "b:c:ho:rt:vw:x")) != -1) {
+	while ((c = getopt(argc, argv, "ab:c:ho:rt:vw:x")) != -1) {
 		switch (c)
 		{
 			case 'h':
@@ -469,6 +475,9 @@ int main(int argc, char **argv)
 			case 'b':
 				FLAGS |= OPT_B;
 				baud = strtoul(optarg, NULL, 10);
+				break;
+			case 'a':
+				FLAGS |= OPT_A;
 				break;
 			default:
 				abort();
