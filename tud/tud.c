@@ -119,7 +119,7 @@ static void usage(void)
 	printf("  -c\tspecify sending repeat counts\n");
 	printf("  -t\tspecify sending period\n");
 	printf("  -x\tparse in hex mode\n");
-	printf("  -a\tappending \"\\r\\n\" at the end");
+	printf("  -a\tappending \"\\r\\n\" at the end\n");
 }
 
 static void EXIT(int exit_code)
@@ -185,7 +185,7 @@ static void *thread_start(void *arg)
 	for (;;) {
 		n = read(fd, &c, 1);
 		if (n > 0)
-			printf("%c", c);
+			printf("\e[4;33m%c\e[0m", c);
 	}
 	return NULL;
 }
