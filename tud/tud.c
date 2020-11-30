@@ -289,6 +289,9 @@ int setting_baud(int fd, int baud)
 	reset_termios_opts(&options);
 
 	switch (baud) {
+	case 230400:
+		speed = B230400;
+	break;
 	case 115200:
 		speed = B115200;
 	break;
