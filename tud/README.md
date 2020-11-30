@@ -43,3 +43,16 @@ TUD (The Ugly Duckling), a simple serial port debugging tool for Linux.
 ```
   $ tud -o /dev/ttyUSB0 -v -w "345" -x // This would send two bytes (0x45, then 0x03) to the target.
 ```
+Usage: tud [OPTION]...
+[OPTIONS]
+  -b	setting baud rate, default 115200
+  -h	display this message
+  -o	open target serial port, eg. /dev/ttyUSB0
+  -w	write target serial port
+  -r	read target serial port
+  -v	verbose mode
+  -c	specify sending repeat counts
+  -t	specify sending period
+  -x	parse in hex mode
+  -a	appending "\r\n" at the end
+Usage: tud [OPTION]... [OPTIONS] -b setting baud rate, default 115200 -h display this message -o open target serial port, eg. /dev/ttyUSB0 -w write target serial port -r read target serial port -v verbose mode -c specify sending repeat counts -t specify sending period -x parse in hex mode -a appending "\r\n" at the end
